@@ -10296,31 +10296,31 @@ CODE_BCFE28:				;		 |
 	LDA $30,x			;$BCFE3E	 |
 	AND $EB				;$BCFE40	 |
 	BEQ CODE_BCFE28			;$BCFE42	 |
-	LDA $1A,x			;$BCFE44	 |
+	LDA $1A,x			;$BCFE44	 | Get clipping ID
 	LSR A				;$BCFE46	 |
 	TAY				;$BCFE47	 |
-	LDA DATA_BCB600,y		;$BCFE48	 |
+	LDA DATA_BCB600,y		;$BCFE48	 | clipping pointer
 	TAY				;$BCFE4B	 |
-	LDA $0A,x			;$BCFE4C	 |
+	LDA $0A,x			;$BCFE4C	 | Get sprite Y position
 	BIT $12,x			;$BCFE4E	 |
-	BPL CODE_BCFE69			;$BCFE50	 |
+	BPL .no_vertical_flip		;$BCFE50	 |
 	SEC				;$BCFE52	 |
-	SBC $0002,y			;$BCFE53	 |
-	CMP $DB				;$BCFE56	 |
+	SBC $0002,y			;$BCFE53	 | Subtract clipping vertical offset
+	CMP $DB				;$BCFE56	 | Compare with the top of the thrown sprite
 	BCC CODE_BCFE28			;$BCFE58	 |
 	STA $E7				;$BCFE5A	 |
-	SBC $0006,y			;$BCFE5C	 |
-	CMP $DF				;$BCFE5F	 |
+	SBC $0006,y			;$BCFE5C	 | Subtract clipping height
+	CMP $DF				;$BCFE5F	 | Compare with the bottom of the thrown sprite
 	BCC CODE_BCFE65			;$BCFE61	 |
 	BNE CODE_BCFE28			;$BCFE63	 |
 CODE_BCFE65:				;		 |
 	STA $E3				;$BCFE65	 |
 	BRA CODE_BCFE7F			;$BCFE67	/
 
-CODE_BCFE69:
+.no_vertical_flip
 	CLC				;$BCFE69	\
-	ADC $0002,y			;$BCFE6A	 |
-	CMP $DF				;$BCFE6D	 |
+	ADC $0002,y			;$BCFE6A	 | Add clipping vertical offset
+	CMP $DF				;$BCFE6D	 | Compare with the bottom of the thrown sprite
 	BCC CODE_BCFE74			;$BCFE6F	 |
 	BNE CODE_BCFE28			;$BCFE71	 |
 	CLC				;$BCFE73	 |
