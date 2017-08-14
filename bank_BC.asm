@@ -10266,36 +10266,36 @@ CODE_BCFE07:
 	CLC				;$BCFE08	 |
 	RTL				;$BCFE09	/
 
-CODE_BCFE0A:
+check_for_sprite_collision:
 	STA $EB				;$BCFE0A	\
-	LDA #$16B2			;$BCFE0C	 |
-	STA $6A				;$BCFE0F	 |
-	LDA $09E3			;$BCFE11	 |
+	LDA #$16B2			;$BCFE0C	 | load highest sprite slot
+	STA $6A				;$BCFE0F	 | Set alternative sprite index
+	LDA $09E3			;$BCFE11	 | Left of the thrown sprite
 	STA $D9				;$BCFE14	 |
-	LDA $09E7			;$BCFE16	 |
+	LDA $09E7			;$BCFE16	 | Right of the thrown sprite
 	STA $DD				;$BCFE19	 |
-	LDA $09E9			;$BCFE1B	 |
+	LDA $09E9			;$BCFE1B	 | Bottom of the thrown sprite
 	STA $DF				;$BCFE1E	 |
-	LDA $09E5			;$BCFE20	 |
+	LDA $09E5			;$BCFE20	 | Top of the thrown sprite
 	STA $DB				;$BCFE23	 |
 	PHB				;$BCFE25	 |
 	PHK				;$BCFE26	 |
 	PLB				;$BCFE27	 |
-CODE_BCFE28:				;		 |
+check_contact_next_slot:		;		 |
 	LDA $6A				;$BCFE28	 |
 	SEC				;$BCFE2A	 |
-	SBC #$005E			;$BCFE2B	 |
+	SBC #$005E			;$BCFE2B	 | decrease sprite slot
 	STA $6A				;$BCFE2E	 |
-	CMP #$0E40			;$BCFE30	 |
-	BEQ CODE_BCFE07			;$BCFE33	 |
+	CMP #$0E40			;$BCFE30	 | If at Dixie's sprite slot..
+	BEQ CODE_BCFE07			;$BCFE33	 | then stop checking
 	CMP $64				;$BCFE35	 |
-	BEQ CODE_BCFE28			;$BCFE37	 |
+	BEQ check_contact_next_slot	;$BCFE37	 | Don't check sprite against itself
 	TAX				;$BCFE39	 |
-	LDA $00,x			;$BCFE3A	 |
-	BEQ CODE_BCFE28			;$BCFE3C	 |
-	LDA $30,x			;$BCFE3E	 |
+	LDA $00,x			;$BCFE3A	 | sprite ID
+	BEQ check_contact_next_slot	;$BCFE3C	 |
+	LDA $30,x			;$BCFE3E	 | TODO: unknown sprite property
 	AND $EB				;$BCFE40	 |
-	BEQ CODE_BCFE28			;$BCFE42	 |
+	BEQ check_contact_next_slot	;$BCFE42	 |
 	LDA $1A,x			;$BCFE44	 | Get clipping ID
 	LSR A				;$BCFE46	 |
 	TAY				;$BCFE47	 |
@@ -10303,63 +10303,63 @@ CODE_BCFE28:				;		 |
 	TAY				;$BCFE4B	 |
 	LDA $0A,x			;$BCFE4C	 | Get sprite Y position
 	BIT $12,x			;$BCFE4E	 |
-	BPL .no_vertical_flip		;$BCFE50	 |
+	BPL no_vertical_flip		;$BCFE50	 |
 	SEC				;$BCFE52	 |
 	SBC $0002,y			;$BCFE53	 | Subtract clipping vertical offset
 	CMP $DB				;$BCFE56	 | Compare with the top of the thrown sprite
-	BCC CODE_BCFE28			;$BCFE58	 |
+	BCC check_contact_next_slot	;$BCFE58	 |
 	STA $E7				;$BCFE5A	 |
 	SBC $0006,y			;$BCFE5C	 | Subtract clipping height
 	CMP $DF				;$BCFE5F	 | Compare with the bottom of the thrown sprite
 	BCC CODE_BCFE65			;$BCFE61	 |
-	BNE CODE_BCFE28			;$BCFE63	 |
+	BNE check_contact_next_slot	;$BCFE63	 |
 CODE_BCFE65:				;		 |
 	STA $E3				;$BCFE65	 |
 	BRA CODE_BCFE7F			;$BCFE67	/
 
-.no_vertical_flip
+no_vertical_flip:
 	CLC				;$BCFE69	\
 	ADC $0002,y			;$BCFE6A	 | Add clipping vertical offset
 	CMP $DF				;$BCFE6D	 | Compare with the bottom of the thrown sprite
 	BCC CODE_BCFE74			;$BCFE6F	 |
-	BNE CODE_BCFE28			;$BCFE71	 |
+	BNE check_contact_next_slot	;$BCFE71	 |
 	CLC				;$BCFE73	 |
 CODE_BCFE74:				;		 |
 	STA $E3				;$BCFE74	 |
-	ADC $0006,y			;$BCFE76	 |
-	CMP $DB				;$BCFE79	 |
-	BCC CODE_BCFE28			;$BCFE7B	 |
+	ADC $0006,y			;$BCFE76	 | Add clipping height
+	CMP $DB				;$BCFE79	 | Compare with the top of the thrown sprite
+	BCC check_contact_next_slot	;$BCFE7B	 |
 	STA $E7				;$BCFE7D	 |
 CODE_BCFE7F:				;		 |
-	LDA $06,x			;$BCFE7F	 |
+	LDA $06,x			;$BCFE7F	 | Get sprite X position
 	BIT $12,x			;$BCFE81	 |
-	BVC CODE_BCFE9C			;$BCFE83	 |
+	BVC no_horizontal_flip		;$BCFE83	 |
 	SEC				;$BCFE85	 |
-	SBC $0000,y			;$BCFE86	 |
-	CMP $D9				;$BCFE89	 |
-	BCC CODE_BCFE28			;$BCFE8B	 |
+	SBC $0000,y			;$BCFE86	 | Subtract clipping horizontal offset
+	CMP $D9				;$BCFE89	 | Compare with the leftmost of the thrown sprite
+	BCC check_contact_next_slot	;$BCFE8B	 |
 	STA $E5				;$BCFE8D	 |
-	SBC $0004,y			;$BCFE8F	 |
-	CMP $DD				;$BCFE92	 |
+	SBC $0004,y			;$BCFE8F	 | Subtract clipping width
+	CMP $DD				;$BCFE92	 | Compare with the rightmost of the thrown sprite
 	BCC CODE_BCFE98			;$BCFE94	 |
-	BNE CODE_BCFE28			;$BCFE96	 |
+	BNE check_contact_next_slot	;$BCFE96	 |
 CODE_BCFE98:				;		 |
 	STA $E1				;$BCFE98	 |
 	BRA CODE_BCFEB5			;$BCFE9A	/
 
-CODE_BCFE9C:
+no_horizontal_flip:
 	CLC				;$BCFE9C	\
-	ADC $0000,y			;$BCFE9D	 |
-	CMP $DD				;$BCFEA0	 |
+	ADC $0000,y			;$BCFE9D	 | Add clipping horizontal offset
+	CMP $DD				;$BCFEA0	 | Compare with the rightmost of the thrown sprite
 	BCC CODE_BCFEA7			;$BCFEA2	 |
-	BNE CODE_BCFE28			;$BCFEA4	 |
+	BNE check_contact_next_slot	;$BCFEA4	 |
 	CLC				;$BCFEA6	 |
 CODE_BCFEA7:				;		 |
 	STA $E1				;$BCFEA7	 |
-	ADC $0004,y			;$BCFEA9	 |
-	CMP $D9				;$BCFEAC	 |
+	ADC $0004,y			;$BCFEA9	 | Add clipping width
+	CMP $D9				;$BCFEAC	 | Compare with the leftmost of the thrown sprite
 	BCS CODE_BCFEB3			;$BCFEAE	 |
-	BRL CODE_BCFE28			;$BCFEB0	/
+	BRL check_contact_next_slot	;$BCFEB0	/
 
 CODE_BCFEB3:
 	STA $E5				;$BCFEB3	\

@@ -2769,7 +2769,7 @@ CODE_BEBD8E:
 
 CODE_BEBD92:
 	STY $5E				;$BEBD92	\
-	JSL CODE_BCFE0A			;$BEBD94	 |
+	JSL check_for_sprite_collision	;$BEBD94	 |
 	LDX $64				;$BEBD98	 |
 	BCC CODE_BEBDC0			;$BEBD9A	 |
 	JSR CODE_BEC5A4			;$BEBD9C	 |

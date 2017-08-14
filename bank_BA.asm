@@ -530,7 +530,7 @@ DATA_BA9006:
 
 CODE_BA9016:
 	STY $5E				;$BA9016	\
-	JSL CODE_BCFE0A			;$BA9018	 |
+	JSL check_for_sprite_collision	;$BA9018	 |
 	LDX $64				;$BA901C	 |
 	BCC CODE_BA9041			;$BA901E	 |
 	LDY $6A				;$BA9020	 |

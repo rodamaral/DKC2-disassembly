@@ -5568,7 +5568,7 @@ CODE_B8AD2A:
 	LDA #$0007			;$B8AD34	 |
 	JSL CODE_BCFB69			;$B8AD37	 |
 	LDA #$0020			;$B8AD3B	 |
-	JSL CODE_BCFE0A			;$B8AD3E	 |
+	JSL check_for_sprite_collision	;$B8AD3E	 |
 	BCS CODE_B8AD88			;$B8AD42	 |
 CODE_B8AD44:				;		 |
 	LDX $64				;$B8AD44	 |
@@ -6133,7 +6133,7 @@ CODE_B8B199:
 	LDA #$0007			;$B8B1A3	 |
 	JSL CODE_BCFB69			;$B8B1A6	 |
 	LDA #$0020			;$B8B1AA	 |
-	JSL CODE_BCFE0A			;$B8B1AD	 |
+	JSL check_for_sprite_collision	;$B8B1AD	 |
 	BCS CODE_B8B1C4			;$B8B1B1	 |
 CODE_B8B1B3:				;		 |
 	LDA #$0022			;$B8B1B3	 |
@@ -9859,7 +9859,7 @@ CODE_B8CB97:
 	LDA #$0000			;$B8CBA7	 |
 	JSL CODE_BCFB69			;$B8CBAA	 |
 	LDA #$0001			;$B8CBAE	 |
-	JSL CODE_BCFE0A			;$B8CBB1	 |
+	JSL check_for_sprite_collision	;$B8CBB1	 |
 	BCC CODE_B8CB95			;$B8CBB5	 |
 	LDX $6A				;$B8CBB7	 |
 	LDA $1E,x			;$B8CBB9	 |

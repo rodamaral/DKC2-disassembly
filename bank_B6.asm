@@ -267,7 +267,7 @@ CODE_B68225:
 	JSR CODE_B6828C			;$B68225	\
 	LDA #$0200			;$B68228	 |
 	LDY #$0000			;$B6822B	 |
-	JSL CODE_BCFE0A			;$B6822E	 |
+	JSL check_for_sprite_collision	;$B6822E	 |
 	BCC CODE_B68267			;$B68232	 |
 	LDY $6A				;$B68234	 |
 	LDA $0000,y			;$B68236	 |
@@ -295,7 +295,7 @@ CODE_B68267:				;		 |
 CODE_B68268:
 	JSR CODE_B6828C			;$B68268	\
 	LDA #$0200			;$B6826B	 |
-	JSL CODE_BCFE0A			;$B6826E	 |
+	JSL check_for_sprite_collision	;$B6826E	 |
 	BCC CODE_B68267			;$B68272	 |
 	LDY $6A				;$B68274	 |
 	LDA $0000,y			;$B68276	 |
@@ -2275,7 +2275,7 @@ CODE_B699EB:
 	BNE CODE_B69A4F			;$B69A03	 |
 	JSL CODE_BCFB58			;$B69A05	 |
 	LDA #$0200			;$B69A09	 |
-	JSL CODE_BCFE0A			;$B69A0C	 |
+	JSL check_for_sprite_collision	;$B69A0C	 |
 	BCC CODE_B69A4F			;$B69A10	 |
 	INC $0763			;$B69A12	 |
 	LDY $075F			;$B69A15	 |
@@ -2358,7 +2358,7 @@ CODE_B69AB4:
 CODE_B69ABE:
 	JSL CODE_BCFB58			;$B69ABE	\
 	LDA #$0020			;$B69AC2	 |
-	JSL CODE_BCFE0A			;$B69AC5	 |
+	JSL check_for_sprite_collision	;$B69AC5	 |
 	BCC CODE_B69B30			;$B69AC9	 |
 	LDY $6A				;$B69ACB	 |
 	LDA $0000,y			;$B69ACD	 |
@@ -3038,7 +3038,7 @@ CODE_B6A045:
 	BNE CODE_B6A0C5			;$B6A04A	 |
 	JSL CODE_BCFB58			;$B6A04C	 |
 	LDA #$0020			;$B6A050	 |
-	JSL CODE_BCFE0A			;$B6A053	 |
+	JSL check_for_sprite_collision	;$B6A053	 |
 	BCC CODE_B6A0B2			;$B6A057	 |
 	LDY $6A				;$B6A059	 |
 	LDA $0000,y			;$B6A05B	 |
@@ -3226,7 +3226,7 @@ CODE_B6A1C2:
 	STA $2E,x			;$B6A1C9	 |
 	JSL CODE_BCFB58			;$B6A1CB	 |
 	LDA #$0020			;$B6A1CF	 |
-	JSL CODE_BCFE0A			;$B6A1D2	 |
+	JSL check_for_sprite_collision	;$B6A1D2	 |
 	BCC CODE_B6A1F7			;$B6A1D6	 |
 	LDY $6A				;$B6A1D8	 |
 	LDA $0000,y			;$B6A1DA	 |
@@ -10086,7 +10086,7 @@ CODE_B6DE61:				;		 |
 CODE_B6DE66:
 	JSL CODE_BCFB58			;$B6DE66	\
 	LDA #$0010			;$B6DE6A	 |
-	JSL CODE_BCFE0A			;$B6DE6D	 |
+	JSL check_for_sprite_collision	;$B6DE6D	 |
 	BCC CODE_B6DE8E			;$B6DE71	 |
 	LDX $6A				;$B6DE73	 |
 	LDA $00,x			;$B6DE75	 |
@@ -11851,7 +11851,7 @@ CODE_B6ED51:
 CODE_B6ED54:
 	JSL CODE_BCFB58			;$B6ED54	\
 	LDA #$0020			;$B6ED58	 |
-	JSL CODE_BCFE0A			;$B6ED5B	 |
+	JSL check_for_sprite_collision	;$B6ED5B	 |
 	BCC CODE_B6EDAD			;$B6ED5F	 |
 	LDY $6A				;$B6ED61	 |
 	LDA $0000,y			;$B6ED63	 |
@@ -12348,7 +12348,7 @@ CODE_B6F11B:
 CODE_B6F12C:				;		 |
 	JSL CODE_BCFB58			;$B6F12C	 |
 	LDA #$0020			;$B6F130	 |
-	JSL CODE_BCFE0A			;$B6F133	 |
+	JSL check_for_sprite_collision	;$B6F133	 |
 	LDX $64				;$B6F137	 |
 	BCC CODE_B6F19C			;$B6F139	 |
 	LDY $6A				;$B6F13B	 |
