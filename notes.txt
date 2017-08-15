@@ -116,24 +116,24 @@ known pointer for $0005
 	
 (look into CODE_808C2E)
 
-CODE_BB8089	 ;<-- CGRAM DMA routine
+CODE_BB8089	;<-- CGRAM DMA routine
 
-CODE_80A873	 ;<-- some animation code
+CODE_80A873	;<-- some animation code
 
-CODE_8084E7	 ;<-- primary register init
+CODE_8084E7	;<-- primary register init
 
-CODE_BEB82A	 ;<-- Some sort of execptr routine
-CODE_B3A369	 ;<-- Some sort of execptr routine
+CODE_BEB82A	;<-- Some sort of execptr routine
+CODE_B3A369	;<-- Some sort of execptr routine
 
-CODE_B6D923	 ;<-- Change to bank BA
+CODE_B6D923	;<-- Change to bank BA
 
-DATA_EE0D86	 ;Pointers to used at $32 (long)
-DATA_EE1086	 ;More long pointers
-DATA_EE117B	 ;Even more
+DATA_EE0D86	;Pointers to used at $32 (long)
+DATA_EE1086	;More long pointers
+DATA_EE117B	;Even more
 DATA_BCB600	;Collision detection pointers
 
-CODE_BA9E84	 ;Relative to bank B6
-CODE_B49E48	 ;DMA new message to the screen
+CODE_BA9E84	;Relative to bank B6
+CODE_B49E48	;DMA new message to the screen
 CODE_BAC7C0	;Set OAM offscreen
 CODE_808591	;Clear VRAM DMA
 CODE_80895F	;DMA routine (usually seems to DMA from $7F0000
@@ -147,6 +147,7 @@ CODE_B9D0B8	;Handle the "AI" of the kongs along with those nasty tables in F9 an
 CODE_B5BCA8	;Map loading stuff
 CODE_808B6F	;Weird code
 CODE_BBB70C	;Looks like sprite level load code
+CODE_BCFEB8	;Dead code?
 
 
 
